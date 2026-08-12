@@ -4,8 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#171717" />
-  <meta name="description" content="Turn ordinary moments into tiny, shareable adventures." />
-  <title>Tiny Quest — Small adventures for ordinary days</title>
+  <meta name="description" content="Tiny Quest turns spare moments into small, shareable real-life adventures." />
+  <meta property="og:title" content="Tiny Quest" />
+  <meta property="og:description" content="Pick your moment. Get a tiny adventure. Challenge a friend." />
+  <title>Tiny Quest v4 — Small adventures for ordinary days</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="favicon.svg" />
   <link rel="stylesheet" href="styles.css" />
@@ -16,7 +18,7 @@
 
   <main class="app">
     <header class="topbar">
-      <a class="brand" href="#" aria-label="Tiny Quest home"><span class="brand-mark">✦</span> Tiny Quest</a>
+      <a class="brand" href="./" aria-label="Tiny Quest home"><span class="brand-mark">✦</span><span>Tiny Quest</span><b>v4</b></a>
       <a class="github-link" href="https://github.com/BIg-Hero777/tiny-quest" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
     </header>
 
@@ -24,32 +26,38 @@
       <div class="hero-copy">
         <p class="eyebrow">MICRO-ADVENTURES FOR REAL LIFE</p>
         <h1 id="hero-title">Make today a little<br /><em>less ordinary.</em></h1>
-        <p class="intro">Pick your time, place, and energy. Tiny Quest gives you one small mission worth remembering.</p>
+        <p class="intro">Pick your mood, roll a tiny mission, then take it into the real world. Complete quests, build a streak, and challenge a friend.</p>
         <div class="hero-chips" aria-label="Tiny Quest highlights">
-          <span>⚡ 30 seconds to start</span>
+          <span>🎴 Shareable quest cards</span>
+          <span>👥 Friend challenges</span>
           <span>🔒 No account</span>
           <span>📴 Works offline</span>
         </div>
       </div>
 
       <aside class="stats-card" aria-label="Your quest stats">
-        <div class="stat">
-          <span class="stat-icon">🔥</span>
-          <div><strong id="streakStat">0</strong><small>day streak</small></div>
+        <div class="level-block">
+          <span class="level-kicker">LEVEL</span>
+          <div class="level-line"><strong id="levelStat">1</strong><span id="levelName">Wanderer</span></div>
+          <div class="level-track"><span id="levelProgress"></span></div>
+          <small id="levelNext">0 / 100 XP</small>
         </div>
-        <div class="stat">
-          <span class="stat-icon">✓</span>
-          <div><strong id="completedStat">0</strong><small>completed</small></div>
-        </div>
-        <div class="stat">
-          <span class="stat-icon">⚡</span>
-          <div><strong id="xpStat">0</strong><small>total XP</small></div>
-        </div>
-        <div class="stat">
-          <span class="stat-icon">🏅</span>
-          <div><strong id="badgeStat">0</strong><small>badges</small></div>
+        <div class="stats-grid">
+          <div class="stat"><span>🔥</span><strong id="streakStat">0</strong><small>day streak</small></div>
+          <div class="stat"><span>✓</span><strong id="completedStat">0</strong><small>completed</small></div>
+          <div class="stat"><span>⚡</span><strong id="xpStat">0</strong><small>total XP</small></div>
+          <div class="stat"><span>🏅</span><strong id="badgeStat">0</strong><small>badges</small></div>
         </div>
       </aside>
+    </section>
+
+    <section id="challengeBanner" class="challenge-banner" hidden>
+      <div>
+        <p class="section-kicker">FRIEND CHALLENGE</p>
+        <h2>Someone sent you a Tiny Quest.</h2>
+        <p>Accept it below, complete it in real life, then send one back.</p>
+      </div>
+      <span class="challenge-stamp">YOU'RE IT ✦</span>
     </section>
 
     <section class="quest-studio" aria-labelledby="studio-title">
@@ -59,6 +67,14 @@
           <h2 id="studio-title">What fits your moment?</h2>
         </div>
         <button id="today" class="ghost-button" type="button">☀ Today's quest</button>
+      </div>
+
+      <div class="theme-row" aria-label="Quest theme">
+        <button class="theme-chip active" data-theme="everyday" type="button"><span>✦</span> Everyday</button>
+        <button class="theme-chip" data-theme="reset" type="button"><span>🌿</span> Reset</button>
+        <button class="theme-chip" data-theme="explore" type="button"><span>🧭</span> Explore</button>
+        <button class="theme-chip" data-theme="together" type="button"><span>🤝</span> Together</button>
+        <button class="theme-chip" data-theme="family" type="button"><span>🎈</span> Family</button>
       </div>
 
       <div class="controls">
@@ -97,24 +113,23 @@
           <span id="questXp" class="quest-xp">+XP</span>
         </div>
         <h3 id="questTitle">Your next tiny adventure starts here.</h3>
-        <p id="questDescription">Choose your moment above, then roll a quest. No optimizing. No perfect plan. Just go.</p>
+        <p id="questDescription">Choose a theme and your moment, then roll a quest. No optimizing. No perfect plan. Just go.</p>
         <div id="questMeta" class="quest-meta" hidden></div>
         <div id="questTwist" class="quest-twist" hidden></div>
       </article>
 
       <div class="quest-actions">
         <button id="done" class="complete-button" type="button" disabled>✓ Complete quest</button>
-        <button id="share" class="share-button" type="button" disabled>↗ Share</button>
+        <button id="shareCard" class="share-button" type="button" disabled>🎴 Share card</button>
+        <button id="challenge" class="challenge-button" type="button" disabled>👥 Challenge friend</button>
       </div>
+      <p class="privacy-note">Quest cards and challenge links are created in your browser. Your progress is never uploaded.</p>
     </section>
 
     <section class="progress-grid">
       <article class="trail panel-card">
         <div class="section-heading-row">
-          <div>
-            <p class="section-kicker">YOUR TRAIL</p>
-            <h2>Recent adventures</h2>
-          </div>
+          <div><p class="section-kicker">YOUR TRAIL</p><h2>Recent adventures</h2></div>
           <button id="clearTrail" class="text-button" type="button">Clear</button>
         </div>
         <ol id="history" class="history-list"></ol>
@@ -122,14 +137,21 @@
 
       <article class="badges panel-card">
         <div class="section-heading-row">
-          <div>
-            <p class="section-kicker">BADGES</p>
-            <h2>Tiny achievements</h2>
-          </div>
-          <span id="badgeProgress" class="badge-progress">0 / 5</span>
+          <div><p class="section-kicker">BADGES</p><h2>Tiny achievements</h2></div>
+          <span id="badgeProgress" class="badge-progress">0 / 7</span>
         </div>
         <div id="badges" class="badge-grid"></div>
       </article>
+    </section>
+
+    <section class="how-it-works panel-card">
+      <div><p class="section-kicker">HOW TO PLAY</p><h2>Real life is the game board.</h2></div>
+      <div class="steps">
+        <div><b>01</b><strong>Pick your moment</strong><span>Theme, time, place, energy.</span></div>
+        <div><b>02</b><strong>Do the quest</strong><span>Leave the screen and actually do it.</span></div>
+        <div><b>03</b><strong>Complete & grow</strong><span>Earn XP, streaks, levels, badges.</span></div>
+        <div><b>04</b><strong>Pass it on</strong><span>Share a card or challenge a friend.</span></div>
+      </div>
     </section>
 
     <footer>
